@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Site</title>
+</head>
+<body>
+    <h1>Testing PortfolioForge</h1>
+    <p>Backend Status: <span id="backendStatus">Checking...</span></p>
+    <p>Frontend Status: <span id="frontendStatus">Working</span></p>
+    
+    <script>
+        // Test backend
+        fetch('http://localhost:3001/api/health')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('backendStatus').textContent = 'Working - ' + data.message;
+            })
+            .catch(error => {
+                document.getElementById('backendStatus').textContent = 'Error - ' + error.message;
+            });
+    </script>
+</body>
+</html>

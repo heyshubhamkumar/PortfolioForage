@@ -1,0 +1,41 @@
+John Doe
+Software Engineer
+Email: john.doe@example.com
+Phone: (555) 123-4567
+
+Summary
+Experienced software engineer with 5 years of experience in web development.
+
+Skills
+- JavaScript
+- React
+- Node.js
+- Python
+- MongoDB
+- Git
+
+Experience
+Senior Developer - Tech Company (2020-2023)
+• Developed web applications using React and Node.js
+• Led a team of 3 developers
+• Improved application performance by 40%
+
+Junior Developer - Startup Inc (2018-2020)
+• Built RESTful APIs
+• Worked on frontend development
+• Collaborated with cross-functional teams
+
+Education
+Bachelor of Science in Computer Science
+University of Technology (2014-2018)
+
+Projects
+E-commerce Platform
+• Built a full-stack e-commerce solution
+• Used React, Node.js, and MongoDB
+• Implemented payment gateway integration
+
+Task Management App
+• Created a productivity app
+• Used React and Firebase
+• Real-time collaboration features

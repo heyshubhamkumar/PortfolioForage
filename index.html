@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume to Portfolio Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-magic"></i>
+                    <span>PortfolioForge</span>
+                </div>
+                <div class="header-controls">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section" id="uploadSection">
+                <div class="container">
+                    <div class="upload-card">
+                        <div class="upload-header">
+                            <h1>Transform Your Resume into a Stunning Portfolio</h1>
+                            <p>Upload your resume and let AI create a professional portfolio website in seconds</p>
+                        </div>
+                        
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h3>Drop your resume here</h3>
+                                <p>or click to browse</p>
+                                <p class="supported-formats">Supports PDF, DOCX, and TXT files</p>
+                                <input type="file" id="fileInput" accept=".pdf,.docx,.txt" hidden>
+                                <button class="upload-btn" id="uploadBtn">Choose File</button>
+                            </div>
+                        </div>
+
+                        <div class="file-info" id="fileInfo" style="display: none;">
+                            <div class="file-details">
+                                <i class="fas fa-file"></i>
+                                <span id="fileName"></span>
+                                <button class="remove-file" id="removeFile">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button class="generate-btn" id="generateBtn" style="display: none;">
+                            <i class="fas fa-sparkles"></i>
+                            Generate Portfolio
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Editor Section -->
+            <section class="editor-section" id="editorSection" style="display: none;">
+                <div class="container">
+                    <div class="editor-layout">
+                        <!-- Sidebar -->
+                        <aside class="sidebar">
+                            <div class="sidebar-header">
+                                <h3>Customize Your Portfolio</h3>
+                            </div>
+                            
+                            <!-- Theme Selector -->
+                            <div class="customization-group">
+                                <h4>Theme</h4>
+                                <div class="theme-options">
+                                    <button class="theme-option active" data-theme="minimal">
+                                        <i class="fas fa-circle"></i>
+                                        Minimal
+                                    </button>
+                                    <button class="theme-option" data-theme="futuristic">
+                                        <i class="fas fa-rocket"></i>
+                                        Futuristic
+                                    </button>
+                                    <button class="theme-option" data-theme="creative">
+                                        <i class="fas fa-palette"></i>
+                                        Creative
+                                    </button>
+                                    <button class="theme-option" data-theme="corporate">
+                                        <i class="fas fa-briefcase"></i>
+                                        Corporate
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Content Editor -->
+                            <div class="customization-group">
+                                <h4>Edit Content</h4>
+                                <div class="content-sections">
+                                    <div class="section-item" data-section="hero">
+                                        <i class="fas fa-user"></i>
+                                        Hero Section
+                                    </div>
+                                    <div class="section-item" data-section="about">
+                                        <i class="fas fa-info-circle"></i>
+                                        About Me
+                                    </div>
+                                    <div class="section-item" data-section="skills">
+                                        <i class="fas fa-code"></i>
+                                        Skills
+                                    </div>
+                                    <div class="section-item" data-section="projects">
+                                        <i class="fas fa-project-diagram"></i>
+                                        Projects
+                                    </div>
+                                    <div class="section-item" data-section="experience">
+                                        <i class="fas fa-briefcase"></i>
+                                        Experience
+                                    </div>
+                                    <div class="section-item" data-section="education">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        Education
+                                    </div>
+                                    <div class="section-item" data-section="contact">
+                                        <i class="fas fa-envelope"></i>
+                                        Contact
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chatbot -->
+                            <div class="customization-group">
+                                <h4>AI Career Coach</h4>
+                                <button class="chatbot-btn" id="chatbotBtn">
+                                    <i class="fas fa-robot"></i>
+                                    Ask Kyro AI
+                                </button>
+                                
+                                <!-- Quick Action Buttons -->
+                                <div class="quick-actions" style="margin-top: 10px;">
+                                    <button class="quick-action-btn" onclick="quickAction('improve-cv')">
+                                        <i class="fas fa-edit"></i> Improve My CV
+                                    </button>
+                                    <button class="quick-action-btn" onclick="quickAction('generate-bio')">
+                                        <i class="fas fa-user"></i> Generate Bio
+                                    </button>
+                                    <button class="quick-action-btn" onclick="quickAction('interview-questions')">
+                                        <i class="fas fa-question-circle"></i> Interview Prep
+                                    </button>
+                                    <button class="quick-action-btn" onclick="quickAction('ats-optimization')">
+                                        <i class="fas fa-chart-line"></i> ATS Score
+                                    </button>
+                                </div>
+                                
+                                <!-- CV Upload for Direct Analysis -->
+                                <div class="cv-upload-section" style="margin-top: 10px;">
+                                    <input type="file" id="directCvUpload" accept=".pdf,.docx,.txt" style="display: none;">
+                                    <button class="upload-cv-btn" onclick="document.getElementById('directCvUpload').click()">
+                                        <i class="fas fa-upload"></i> Upload CV for Analysis
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Export Options -->
+                            <div class="customization-group">
+                                <h4>Export</h4>
+                                <button class="export-btn" id="exportBtn">
+                                    <i class="fas fa-download"></i>
+                                    Download Portfolio
+                                </button>
+                            </div>
+                        </aside>
+
+                        <!-- Preview Area -->
+                        <div class="preview-area">
+                            <div class="preview-header">
+                                <h3>Live Preview</h3>
+                                <div class="preview-controls">
+                                    <button class="preview-device active" data-device="desktop">
+                                        <i class="fas fa-desktop"></i>
+                                    </button>
+                                    <button class="preview-device" data-device="tablet">
+                                        <i class="fas fa-tablet-alt"></i>
+                                    </button>
+                                    <button class="preview-device" data-device="mobile">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="preview-frame" id="previewFrame">
+                                <iframe id="portfolioPreview"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Overlay -->
+            <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                <div class="loading-content">
+                    <div class="loading-spinner"></div>
+                    <h3>Creating Your Portfolio...</h3>
+                    <p>Our AI is analyzing your resume and generating content</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chatbot Modal -->
+    <div class="chatbot-modal" id="chatbotModal" style="display: none;">
+        <div class="chatbot-container">
+            <div class="chatbot-header">
+                <h3><i class="fas fa-robot"></i> Kyro AI - Professional Career Coach</h3>
+                <div class="chatbot-controls">
+                    <select class="tone-selector" id="toneSelector">
+                        <option value="professional">� Professional</option>
+                        <option value="friendly">� Friendly</option>
+                        <option value="formal">🎩 Formal</option>
+                    </select>
+                    <button class="chatbot-close" id="chatbotClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <p>Hello! I'm Kyro AI, your professional career coach and CV optimization expert. I can help you with:</p>
+                        <ul style="text-align: left; margin: 10px 0;">
+                            <li>📋 CV Analysis & Improvement</li>
+                            <li>🎯 ATS Optimization</li>
+                            <li>💼 Portfolio Enhancement</li>
+                            <li>🎤 Interview Preparation</li>
+                            <li>📈 Career Guidance</li>
+                            <li>💰 Salary Insights</li>
+                            <li>🌐 Multilingual Support</li>
+                        </ul>
+                        <p>Upload your CV or ask me anything about your career development!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <div class="input-group">
+                    <input type="text" id="chatbotInput" placeholder="Ask me anything about your CV, career, salaries, or job market...">
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="quick-questions">
+                    <button class="quick-question" data-question="Improve my CV and make it ATS friendly">
+                        📋 Improve My CV
+                    </button>
+                    <button class="quick-question" data-question="Write a professional portfolio bio from my CV">
+                        👤 Generate Portfolio Bio
+                    </button>
+                    <button class="quick-question" data-question="What skills should I add for a software engineering job?">
+                        💻 Skills for Software Job
+                    </button>
+                    <button class="quick-question" data-question="Give me interview questions for a frontend developer">
+                        🎤 Frontend Interview Prep
+                    </button>
+                    <button class="quick-question" data-question="What salary can I expect with my experience level?">
+                        💰 Salary Expectations
+                    </button>
+                    <button class="quick-question" data-question="Optimize my CV for ATS systems">
+                        🎯 ATS Optimization
+                    </button>
+                    <button class="quick-question" data-question="¿Cómo puedo mejorar mi currículum para trabajos de tecnología?">
+                        🌍 CV Help (Spanish)
+                    </button>
+                    <button class="quick-question" data-question="Help me write a cover letter for my dream job">
+                        ✉️ Cover Letter Help
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Edit Section</h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="modalCancel">Cancel</button>
+                <button class="btn-primary" id="modalSave">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

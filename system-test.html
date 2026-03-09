@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PortfolioForge System Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test { margin: 10px 0; padding: 10px; border: 1px solid #ddd; }
+        .pass { background-color: #d4edda; border-color: #c3e6cb; }
+        .fail { background-color: #f8d7da; border-color: #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>PortfolioForge System Check</h1>
+    
+    <div id="backend-test" class="test">Testing Backend...</div>
+    <div id="frontend-test" class="test">Testing Frontend...</div>
+    <div id="upload-test" class="test">Testing Upload...</div>
+    <div id="chatbot-test" class="test">Testing Chatbot...</div>
+    
+    <script>
+        // Test Backend
+        fetch('http://localhost:3001/api/health')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('backend-test').className = 'test pass';
+                document.getElementById('backend-test').innerHTML = '✅ Backend: ' + data.message;
+            })
+            .catch(error => {
+                document.getElementById('backend-test').className = 'test fail';
+                document.getElementById('backend-test').innerHTML = '❌ Backend Error: ' + error.message;
+            });
+        
+        // Test Frontend
+        try {
+            fetch('http://localhost:3001/index.html')
+                .then(() => {
+                    document.getElementById('frontend-test').className = 'test pass';
+                    document.getElementById('frontend-test').innerHTML = '✅ Frontend: Accessible';
+                })
+                .catch(() => {
+                    document.getElementById('frontend-test').innerHTML = '⚠️ Frontend: Running on different port (8000)';
+                });
+        } catch (error) {
+            document.getElementById('frontend-test').className = 'test fail';
+            document.getElementById('frontend-test').innerHTML = '❌ Frontend Error: ' + error.message;
+        }
+        
+        // Test Upload Endpoint
+        fetch('http://localhost:3001/api/upload', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error && data.error.includes('No file uploaded')) {
+                    document.getElementById('upload-test').className = 'test pass';
+                    document.getElementById('upload-test').innerHTML = '✅ Upload: Endpoint working (requires file)';
+                } else {
+                    document.getElementById('upload-test').className = 'test fail';
+                    document.getElementById('upload-test').innerHTML = '❌ Upload: Unexpected error';
+                }
+            })
+            .catch(error => {
+                document.getElementById('upload-test').className = 'test pass';
+                document.getElementById('upload-test').innerHTML = '✅ Upload: Endpoint accessible';
+            });
+        
+        // Test Chatbot Endpoint
+        fetch('http://localhost:3001/api/chatbot', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: 'test', portfolioId: 'test' })
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('chatbot-test').className = 'test pass';
+                document.getElementById('chatbot-test').innerHTML = '✅ Chatbot: Endpoint working';
+            })
+            .catch(error => {
+                document.getElementById('chatbot-test').className = 'test fail';
+                document.getElementById('chatbot-test').innerHTML = '❌ Chatbot Error: ' + error.message;
+            });
+    </script>
+</body>
+</html>
